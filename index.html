@@ -81,11 +81,6 @@
     .etapa-status{margin-left:auto;font-family:'Caveat',cursive;font-size:1rem;padding:.2rem .7rem;border-radius:20px;flex-shrink:0}
     .etapa.done .etapa-status{background:var(--sage);color:#fff}
     .etapa.pending .etapa-status{background:var(--straw);color:var(--earth)}
-    .apoiadores{margin-top:2.5rem}
-    .apoiadores h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--rust);margin-bottom:1rem}
-    .apoiador-list{display:flex;flex-wrap:wrap;gap:.7rem}
-    .apoiador-tag{background:var(--feather);border:1.5px solid var(--straw);border-radius:30px;padding:.35rem .9rem;font-family:'Caveat',cursive;font-size:1.05rem;color:var(--earth);transition:transform .2s}
-    .apoiador-tag:hover{transform:scale(1.08)}
 
     /* HISTÓRICO PÚBLICO */
     .historico-pub{max-width:680px;margin:2rem auto 0}
@@ -170,8 +165,6 @@
     .btn-secondary:hover{background:var(--straw)}
 
     footer{background:var(--earth);color:var(--feather);text-align:center;padding:2rem 1rem;font-family:'Caveat',cursive;font-size:1.1rem;opacity:.9}
-    .btn-valor{background:var(--feather);border:2px solid var(--straw);border-radius:10px;padding:.5rem 1rem;font-family:'Lora',serif;font-size:.95rem;font-weight:600;color:var(--earth);cursor:pointer;transition:all .2s;box-shadow:2px 3px 0 var(--straw)}
-    .btn-valor:hover,.btn-valor.selected{background:var(--straw);border-color:var(--gold);transform:translateY(-2px);box-shadow:2px 5px 0 var(--gold)}
     @media(max-width:600px){.header-inner{flex-direction:column;align-items:flex-start}nav{width:100%}nav button{flex:1;text-align:center;padding:.5rem .6rem;font-size:.88rem}}
   </style>
 </head>
@@ -371,8 +364,20 @@ const STORE_KEY = 'galinheiro_pagamentos';
 const PWD_KEY   = 'galinheiro_pwd';
 const META      = 1200;
 
+// Adicionado as contribuições da imagem como dados iniciais padrão
+const DADOS_INICIAIS = [
+  { nome: 'Kyara', valor: 5.00, data: '27/05/2026', obs: '' },
+  { nome: 'Giovana', valor: 20.00, data: '27/05/2026', obs: '' }
+];
+
 function loadPagamentos() {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch { return []; }
+  try { 
+    const stored = localStorage.getItem(STORE_KEY);
+    if (stored) return JSON.parse(stored);
+    return DADOS_INICIAIS; 
+  } catch { 
+    return DADOS_INICIAIS; 
+  }
 }
 function savePagamentos(list) {
   localStorage.setItem(STORE_KEY, JSON.stringify(list));
