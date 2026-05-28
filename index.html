@@ -224,7 +224,7 @@
       <div class="vakinha-subtitle">Cada real nos aproxima das penas! 🐔</div>
       <div class="valores">
         <div class="valor-item"><span class="num" id="val-arrecadado">R$ 0</span><span class="label">Arrecadado</span></div>
-        <div class="valor-item"><span class="num">R$ 2.500</span><span class="label">Meta Total</span></div>
+        <div class="valor-item"><span class="num">R$ 1.200</span><span class="label">Meta Total</span></div>
         <div class="valor-item"><span class="num" id="val-pct">0%</span><span class="label">Concluído</span></div>
       </div>
       <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
@@ -248,7 +248,7 @@
     <div class="etapas">
       <div class="etapa done"><span class="etapa-icon">📐</span><div class="etapa-info"><h4>Planejamento e projeto</h4><p>Estudo do espaço, definição do tamanho e modelo do galinheiro</p></div><span class="etapa-status">✅ Feito</span></div>
       <div class="etapa done"><span class="etapa-icon">🛒</span><div class="etapa-info"><h4>Lista de materiais</h4><p>Madeira, tela, telhas, comedouros, bebedouros e acessórios</p></div><span class="etapa-status">✅ Feito</span></div>
-      <div class="etapa pending"><span class="etapa-icon">💰</span><div class="etapa-info"><h4>Arrecadação completa</h4><p>Atingir a meta de R$ 2.500 para compra de todos os materiais</p></div><span class="etapa-status">⏳ Em curso</span></div>
+      <div class="etapa pending"><span class="etapa-icon">💰</span><div class="etapa-info"><h4>Arrecadação completa</h4><p>Atingir a meta de R$ 1.200 para compra de todos os materiais</p></div><span class="etapa-status">⏳ Em curso</span></div>
       <div class="etapa pending"><span class="etapa-icon">🔨</span><div class="etapa-info"><h4>Construção do galinheiro</h4><p>Obra em mutirão! Vem junto quem quiser ajudar 🤗</p></div><span class="etapa-status">🔜 Em breve</span></div>
       <div class="etapa pending"><span class="etapa-icon">🐔</span><div class="etapa-info"><h4>Chegada das galinhas sedosas</h4><p>O momento mais esperado — as primeiras moradoras chegam!</p></div><span class="etapa-status">🔜 Em breve</span></div>
     </div>
@@ -369,7 +369,7 @@
 // ════════════════════════════════════════
 const STORE_KEY = 'galinheiro_pagamentos';
 const PWD_KEY   = 'galinheiro_pwd';
-const META      = 2500;
+const META      = 1200;
 
 function loadPagamentos() {
   try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch { return []; }
@@ -492,7 +492,7 @@ function renderAdmin() {
   const pct = Math.min((tot / META) * 100, 100);
   document.getElementById('adm-total').textContent = 'R$ ' + tot.toLocaleString('pt-BR', {minimumFractionDigits:2});
   document.getElementById('adm-pct-bar').style.width = pct + '%';
-  document.getElementById('adm-pct-txt').textContent = pct.toFixed(1) + '% da meta de R$ 2.500';
+  document.getElementById('adm-pct-txt').textContent = pct.toFixed(1) + '% da meta de R$ 1.200';
   document.getElementById('adm-count').textContent = list.length;
 
   const el = document.getElementById('adm-hist-list');
