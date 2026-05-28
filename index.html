@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Desejo da Larissa 🐔</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet"/>
+  
+  <!-- 🔥 BIBLIOTECAS DO FIREBASE 🔥 -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
   <style>
     :root {
       --cream:#fdf6e3; --straw:#e8c87a; --gold:#c9922a; --rust:#9b3a1a;
@@ -81,6 +86,11 @@
     .etapa-status{margin-left:auto;font-family:'Caveat',cursive;font-size:1rem;padding:.2rem .7rem;border-radius:20px;flex-shrink:0}
     .etapa.done .etapa-status{background:var(--sage);color:#fff}
     .etapa.pending .etapa-status{background:var(--straw);color:var(--earth)}
+    .apoiadores{margin-top:2.5rem}
+    .apoiadores h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--rust);margin-bottom:1rem}
+    .apoiador-list{display:flex;flex-wrap:wrap;gap:.7rem}
+    .apoiador-tag{background:var(--feather);border:1.5px solid var(--straw);border-radius:30px;padding:.35rem .9rem;font-family:'Caveat',cursive;font-size:1.05rem;color:var(--earth);transition:transform .2s}
+    .apoiador-tag:hover{transform:scale(1.08)}
 
     /* HISTÓRICO PÚBLICO */
     .historico-pub{max-width:680px;margin:2rem auto 0}
@@ -165,6 +175,8 @@
     .btn-secondary:hover{background:var(--straw)}
 
     footer{background:var(--earth);color:var(--feather);text-align:center;padding:2rem 1rem;font-family:'Caveat',cursive;font-size:1.1rem;opacity:.9}
+    .btn-valor{background:var(--feather);border:2px solid var(--straw);border-radius:10px;padding:.5rem 1rem;font-family:'Lora',serif;font-size:.95rem;font-weight:600;color:var(--earth);cursor:pointer;transition:all .2s;box-shadow:2px 3px 0 var(--straw)}
+    .btn-valor:hover,.btn-valor.selected{background:var(--straw);border-color:var(--gold);transform:translateY(-2px);box-shadow:2px 5px 0 var(--gold)}
     @media(max-width:600px){.header-inner{flex-direction:column;align-items:flex-start}nav{width:100%}nav button{flex:1;text-align:center;padding:.5rem .6rem;font-size:.88rem}}
   </style>
 </head>
@@ -232,7 +244,7 @@
 
     <div class="historico-pub">
       <h3>💛 Quem já contribuiu</h3>
-      <div id="hist-pub-list"><p class="empty-hist">Nenhuma contribuição registrada ainda — seja o primeiro! 🐔</p></div>
+      <div id="hist-pub-list"><p class="empty-hist">Carregando apoiadores... 🐔</p></div>
     </div>
 
     <div style="height:2rem"></div>
@@ -358,30 +370,58 @@
 
 <script>
 // ════════════════════════════════════════
-//  STORAGE HELPERS  (localStorage fallback)
+//  CONFIGURAÇÃO FIREBASE E DADOS
 // ════════════════════════════════════════
-const STORE_KEY = 'galinheiro_pagamentos';
-const PWD_KEY   = 'galinheiro_pwd';
-const META      = 1200;
+const firebaseConfig = {
+  apiKey: "AIzaSyB4bc_T8gNuw8OAd0f5sa7PzcohMlt1YUE",
+  authDomain: "galinha-a49d7.firebaseapp.com",
+  projectId: "galinha-a49d7",
+  storageBucket: "galinha-a49d7.firebasestorage.app",
+  messagingSenderId: "737779885511",
+  appId: "1:737779885511:web:381da515d5c75fe836a5e2"
+};
 
-// Adicionado as contribuições da imagem como dados iniciais padrão
-const DADOS_INICIAIS = [
-  { nome: 'Kyara', valor: 5.00, data: '27/05/2026', obs: '' },
-  { nome: 'Giovana', valor: 20.00, data: '27/05/2026', obs: '' }
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const PWD_KEY = 'galinheiro_pwd';
+const META = 1200;
+let listaPagamentosAtuais = [];
+
+// Dados fixos (Giovana e Kyara já embutidos no código)
+const pagamentosFixos = [
+  { id: 'fixo1', nome: 'Giovana', valor: 20.00, data: '27/05/2026' },
+  { id: 'fixo2', nome: 'Kyara', valor: 5.00, data: '27/05/2026' }
 ];
 
-function loadPagamentos() {
-  try { 
-    const stored = localStorage.getItem(STORE_KEY);
-    if (stored) return JSON.parse(stored);
-    return DADOS_INICIAIS; 
-  } catch { 
-    return DADOS_INICIAIS; 
+// ════════════════════════════════════════
+//  LEITURA EM TEMPO REAL (FIREBASE)
+// ════════════════════════════════════════
+// O site fica "escutando" o banco. Se você doar no PC, atualiza no celular na hora.
+db.collection("pagamentos").orderBy("ts", "asc").onSnapshot((querySnapshot) => {
+  let pagamentosDoBanco = [];
+  querySnapshot.forEach((doc) => {
+    let dado = doc.data();
+    dado.id = doc.id; // Guarda a ID única de cada pagamento para poder deletar depois
+    pagamentosDoBanco.push(dado);
+  });
+  
+  // Junta os fixos com os que vieram do banco de dados
+  listaPagamentosAtuais = [...pagamentosFixos, ...pagamentosDoBanco];
+  
+  // Atualiza as telas automaticamente
+  updateProgress();
+  renderPublico();
+  if (document.getElementById('admin-panel').style.display === 'block') {
+    renderAdmin();
   }
+});
+
+function loadPagamentos() {
+  return listaPagamentosAtuais;
 }
-function savePagamentos(list) {
-  localStorage.setItem(STORE_KEY, JSON.stringify(list));
-}
+
 function loadPwd() {
   return localStorage.getItem(PWD_KEY) || 'galinha2025';
 }
@@ -396,7 +436,6 @@ function showTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (id === 'vakinha') setTimeout(renderPublico, 100);
 }
 
 // ════════════════════════════════════════
@@ -418,10 +457,11 @@ function updateProgress() {
 }
 
 function renderPublico() {
-  updateProgress();
   const list = loadPagamentos();
   const el = document.getElementById('hist-pub-list');
   if (!list.length) { el.innerHTML = '<p class="empty-hist">Nenhuma contribuição registrada ainda — seja o primeiro! 🐔</p>'; return; }
+  
+  // Exibe a lista invertida (mais recentes primeiro)
   el.innerHTML = [...list].reverse().map(p => `
     <div class="hist-row">
       <span style="font-size:1.3rem">💛</span>
@@ -515,7 +555,7 @@ function renderAdmin() {
 }
 
 // ════════════════════════════════════════
-//  ADMIN: ADD PIX
+//  ADMIN: ADD PIX (GRAVA NO FIREBASE)
 // ════════════════════════════════════════
 function addPix() {
   const nome  = document.getElementById('adm-nome').value.trim();
@@ -527,11 +567,19 @@ function addPix() {
   if (!nome) { fb.style.color='#c0392b'; fb.textContent='⚠️ Informe o nome ou apelido do apoiador.'; return; }
   if (!valor || valor <= 0) { fb.style.color='#c0392b'; fb.textContent='⚠️ Informe um valor válido.'; return; }
 
-  const list = loadPagamentos();
+  // Formata a data (se não informar nada, pega a data de hoje)
   const dataFmt = data ? new Date(data+'T12:00:00').toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
-  list.push({ nome, valor, data: dataFmt, obs, ts: Date.now() });
-  savePagamentos(list);
+  
+  // Envia para o banco de dados do Firebase
+  db.collection("pagamentos").add({
+    nome: nome,
+    valor: valor,
+    data: dataFmt,
+    obs: obs,
+    ts: Date.now()
+  });
 
+  // Limpa os campos
   document.getElementById('adm-nome').value = '';
   document.getElementById('adm-valor').value = '';
   document.getElementById('adm-data').value = '';
@@ -540,23 +588,25 @@ function addPix() {
   fb.style.color = 'var(--moss)';
   fb.textContent = `✅ R$ ${valor.toLocaleString('pt-BR',{minimumFractionDigits:2})} de ${nome} registrado com sucesso!`;
   setTimeout(() => fb.textContent = '', 3500);
-
-  renderAdmin();
-  updateProgress();
-  renderPublico();
 }
 
 // ════════════════════════════════════════
-//  ADMIN: DELETE PIX
+//  ADMIN: DELETE PIX (APAGA NO FIREBASE)
 // ════════════════════════════════════════
 function delPix(idx) {
-  if (!confirm('Remover este pagamento?')) return;
   const list = loadPagamentos();
-  list.splice(idx, 1);
-  savePagamentos(list);
-  renderAdmin();
-  updateProgress();
-  renderPublico();
+  const itemParaApagar = list[idx];
+
+  // Impede de apagar os fixos (Giovana e Kyara)
+  if (itemParaApagar.id.startsWith('fixo')) {
+    alert("Não é possível apagar os pagamentos fixos pelo painel.");
+    return;
+  }
+
+  if (!confirm('Remover este pagamento?')) return;
+  
+  // Apaga do banco de dados do Firebase
+  db.collection("pagamentos").doc(itemParaApagar.id).delete();
 }
 
 // ════════════════════════════════════════
@@ -587,11 +637,6 @@ function changePwd() {
 // ════════════════════════════════════════
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-// ════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════
-updateProgress();
-renderPublico();
 </script>
 </body>
 </html>
