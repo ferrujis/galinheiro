@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Desejo da Larissa 🐔</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream:#fdf6e3; --straw:#e8c87a; --gold:#c9922a; --rust:#9b3a1a;
+      --earth:#5c3317; --sage:#6b7f5e; --moss:#3d5436;
+      --feather:#f4e8d0; --shadow:rgba(60,30,10,0.18); --white:#fffdf7;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--cream);font-family:'Lora',Georgia,serif;color:var(--earth);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5}
+
+    /* HEADER */
+    header{background:var(--rust);padding:0 2rem;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px var(--shadow)}
+    .header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;padding:1rem 0}
+    .logo{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;font-style:italic;color:var(--straw);letter-spacing:-.5px;text-shadow:2px 3px 0 var(--earth);line-height:1.1;cursor:pointer;user-select:none}
+    .logo span{color:var(--white);font-style:normal;font-size:1.1rem;display:block;font-weight:400;letter-spacing:3px;text-shadow:none}
+    nav{display:flex;gap:.3rem;flex-wrap:wrap}
+    nav button{background:transparent;border:2px solid transparent;color:var(--feather);font-family:'Lora',serif;font-size:.95rem;font-weight:600;padding:.55rem 1.2rem;border-radius:30px;cursor:pointer;transition:all .3s;letter-spacing:.5px}
+    nav button:hover{background:rgba(255,255,255,.1);border-color:var(--straw)}
+    nav button.active{background:var(--straw);color:var(--earth);border-color:var(--straw);box-shadow:0 3px 10px rgba(0,0,0,.25)}
+
+    /* HERO */
+    .hero{background:linear-gradient(160deg,var(--moss) 0%,var(--sage) 55%,#8ea67e 100%);padding:5rem 2rem 6rem;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(255,255,255,.03) 18px,rgba(255,255,255,.03) 36px)}
+    .hero-emoji{font-size:5rem;display:block;animation:bob 3s ease-in-out infinite}
+    @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;font-style:italic;color:var(--straw);text-shadow:3px 5px 0 rgba(0,0,0,.4);margin:.6rem 0 .3rem;line-height:1.1}
+    .hero p{font-family:'Caveat',cursive;font-size:1.45rem;color:var(--feather);max-width:520px;margin:0 auto 1.8rem;opacity:.9}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--rust);color:var(--straw);font-family:'Caveat',cursive;font-size:1.1rem;padding:.5rem 1.4rem;border-radius:30px;border:2px solid var(--straw);box-shadow:3px 4px 0 var(--earth)}
+
+    /* TABS */
+    .tab{display:none;animation:fadeUp .5s ease both}
+    .tab.active{display:block}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .container{max-width:1000px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;color:var(--rust);position:relative;display:inline-block;margin-bottom:2rem}
+    .section-title::after{content:'';position:absolute;bottom:-8px;left:0;width:60%;height:4px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:4px}
+
+    /* MOTIVOS */
+    .motivos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+    .motivo-card{background:var(--white);border:2px solid var(--straw);border-radius:16px;padding:1.8rem;box-shadow:4px 6px 0 var(--straw);transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+    .motivo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--gold),var(--rust))}
+    .motivo-card:hover{transform:translateY(-5px) rotate(-.5deg);box-shadow:7px 10px 0 var(--gold)}
+    .motivo-icon{font-size:2.6rem;margin-bottom:.7rem;display:block}
+    .motivo-card h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--rust);margin-bottom:.6rem}
+    .motivo-card p{font-size:.95rem;line-height:1.7;color:#5a3a22}
+    .intro-text{font-size:1.1rem;line-height:1.8;max-width:680px;background:var(--feather);border-left:5px solid var(--gold);padding:1.2rem 1.5rem;border-radius:0 12px 12px 0;margin-bottom:.5rem}
+
+    /* VAKINHA */
+    .vakinha-box{background:var(--white);border:2px solid var(--straw);border-radius:20px;padding:2.5rem;box-shadow:6px 8px 0 var(--earth);max-width:680px;margin:0 auto 2rem;text-align:center}
+    .vakinha-emoji{font-size:4rem;animation:moo 4s ease-in-out infinite}
+    @keyframes moo{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+    .vakinha-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--rust);margin:.5rem 0 .3rem}
+    .vakinha-subtitle{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--gold);margin-bottom:1.5rem}
+    .progress-wrap{background:var(--feather);border-radius:50px;overflow:hidden;height:32px;position:relative;border:2px solid var(--straw);margin:1rem 0}
+    .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:50px;width:0;transition:width 1.8s cubic-bezier(.4,0,.2,1);position:relative}
+    .progress-bar::after{content:'🐔';position:absolute;right:-14px;top:50%;transform:translateY(-50%);font-size:1.4rem;filter:drop-shadow(1px 2px 2px rgba(0,0,0,.3))}
+    .progress-label{font-family:'Caveat',cursive;font-size:1.15rem;color:var(--earth);margin-top:.6rem}
+    .valores{display:flex;justify-content:center;gap:2rem;margin:1.5rem 0;flex-wrap:wrap}
+    .valor-item{text-align:center}
+    .valor-item .num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--rust);display:block}
+    .valor-item .label{font-size:.82rem;color:var(--sage);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+    .pix-box{background:linear-gradient(135deg,var(--moss),var(--sage));border-radius:14px;padding:1.5rem 2rem;color:var(--feather);margin-top:1.5rem}
+    .pix-box h4{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.5rem;color:var(--straw)}
+    .pix-key{font-family:'Caveat',cursive;font-size:1.6rem;background:rgba(255,255,255,.15);border-radius:8px;padding:.4rem 1.2rem;display:inline-block;border:1.5px dashed var(--straw);margin:.5rem 0;cursor:pointer;transition:background .2s;user-select:all}
+    .pix-key:hover{background:rgba(255,255,255,.25)}
+    .pix-tip{font-size:.85rem;opacity:.8;margin-top:.4rem}
+    .etapas{margin-top:2rem}
+    .etapa{display:flex;gap:1rem;align-items:flex-start;padding:1rem;border-radius:12px;margin-bottom:.8rem;border:1.5px solid transparent;transition:all .3s}
+    .etapa.done{background:#eaf3e8;border-color:var(--sage)}
+    .etapa.pending{background:var(--feather);border-color:var(--straw);opacity:.7}
+    .etapa-icon{font-size:1.6rem;flex-shrink:0}
+    .etapa-info h4{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--earth)}
+    .etapa-info p{font-size:.88rem;color:#7a5c3a;margin-top:.2rem}
+    .etapa-status{margin-left:auto;font-family:'Caveat',cursive;font-size:1rem;padding:.2rem .7rem;border-radius:20px;flex-shrink:0}
+    .etapa.done .etapa-status{background:var(--sage);color:#fff}
+    .etapa.pending .etapa-status{background:var(--straw);color:var(--earth)}
+    .apoiadores{margin-top:2.5rem}
+    .apoiadores h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--rust);margin-bottom:1rem}
+    .apoiador-list{display:flex;flex-wrap:wrap;gap:.7rem}
+    .apoiador-tag{background:var(--feather);border:1.5px solid var(--straw);border-radius:30px;padding:.35rem .9rem;font-family:'Caveat',cursive;font-size:1.05rem;color:var(--earth);transition:transform .2s}
+    .apoiador-tag:hover{transform:scale(1.08)}
+
+    /* HISTÓRICO PÚBLICO */
+    .historico-pub{max-width:680px;margin:2rem auto 0}
+    .historico-pub h3{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--rust);margin-bottom:.8rem}
+    .hist-row{display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem;background:var(--white);border:1.5px solid var(--straw);border-radius:10px;margin-bottom:.5rem;animation:fadeUp .35s ease both}
+    .hist-row .hist-nome{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--earth);flex:1}
+    .hist-row .hist-val{font-family:'Playfair Display',serif;font-weight:700;color:var(--moss);font-size:1.05rem}
+    .hist-row .hist-data{font-size:.78rem;color:#999;margin-left:.3rem}
+
+    /* HISTÓRIA */
+    .historia-hero{background:linear-gradient(135deg,#f9f0e1,#f0dfc0);border-radius:20px;padding:2.5rem;text-align:center;border:2px solid var(--straw);box-shadow:5px 7px 0 var(--gold);margin-bottom:2.5rem}
+    .historia-hero .big-emoji{font-size:5rem;display:block;animation:flap 2.5s ease-in-out infinite}
+    @keyframes flap{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.08) rotate(2deg)}}
+    .historia-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;font-style:italic;color:var(--rust);margin:.7rem 0 .3rem}
+    .historia-hero .tagline{font-family:'Caveat',cursive;font-size:1.3rem;color:var(--gold)}
+    .historia-section{display:grid;gap:2rem}
+    .historia-block{background:var(--white);border-radius:16px;padding:2rem;border:2px solid #e8d5b0;box-shadow:3px 5px 0 #d4b88a;position:relative;overflow:hidden}
+    .historia-block::before{content:attr(data-num);position:absolute;top:-10px;right:1rem;font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(201,146,42,.1);line-height:1;pointer-events:none}
+    .historia-block h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--rust);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .historia-block p{font-size:1rem;line-height:1.85;color:#5a3d1e}
+    .historia-block p+p{margin-top:.8rem}
+    .feather-divider{text-align:center;font-size:1.8rem;opacity:.5;margin:.5rem 0}
+    .fun-facts{background:linear-gradient(135deg,var(--rust),#7a2c12);color:var(--feather);border-radius:16px;padding:2rem;margin-top:2rem}
+    .fun-facts h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--straw);margin-bottom:1.2rem;text-align:center}
+    .facts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+    .fact-item{background:rgba(255,255,255,.1);border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,.15);text-align:center}
+    .fact-item .fact-icon{font-size:2rem;display:block;margin-bottom:.4rem}
+    .fact-item strong{font-family:'Playfair Display',serif;font-size:1.1rem;display:block;color:var(--straw)}
+    .fact-item span{font-size:.88rem;opacity:.85}
+
+    /* ══════════════ ADMIN MODAL ══════════════ */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(40,15,5,.75);z-index:5000;backdrop-filter:blur(4px);align-items:center;justify-content:center}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--white);border-radius:20px;padding:2.5rem;width:min(560px,94vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative;border:3px solid var(--straw)}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:var(--feather);border:none;font-size:1.3rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .modal-close:hover{background:var(--straw)}
+    .modal h2{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--rust);margin-bottom:.3rem}
+    .modal .sub{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--gold);margin-bottom:1.5rem}
+
+    /* Login form */
+    #login-form{display:block}
+    #admin-panel{display:none}
+    .field{margin-bottom:1.1rem}
+    .field label{display:block;font-weight:600;font-size:.9rem;color:var(--earth);margin-bottom:.35rem;letter-spacing:.3px}
+    .field input{width:100%;padding:.65rem 1rem;border:2px solid var(--straw);border-radius:10px;font-family:'Lora',serif;font-size:1rem;color:var(--earth);background:var(--feather);transition:border .2s}
+    .field input:focus{outline:none;border-color:var(--gold)}
+    .btn-primary{background:var(--rust);color:var(--straw);border:none;padding:.75rem 2rem;border-radius:12px;font-family:'Lora',serif;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:3px 4px 0 var(--earth);transition:transform .15s,box-shadow .15s;width:100%}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:3px 6px 0 var(--earth)}
+    .btn-primary:active{transform:translateY(1px);box-shadow:1px 2px 0 var(--earth)}
+    .login-error{background:#fdecea;border:1.5px solid #e57373;border-radius:8px;padding:.6rem 1rem;font-size:.9rem;color:#b71c1c;margin-bottom:1rem;display:none}
+
+    /* Admin panel */
+    .admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem}
+    .admin-header h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--rust)}
+    .btn-logout{background:var(--feather);border:1.5px solid var(--straw);border-radius:8px;padding:.4rem .9rem;font-family:'Lora',serif;font-size:.85rem;cursor:pointer;color:var(--earth);transition:background .2s}
+    .btn-logout:hover{background:var(--straw)}
+    .admin-total{background:linear-gradient(135deg,var(--moss),var(--sage));border-radius:12px;padding:1.2rem 1.5rem;color:var(--feather);text-align:center;margin-bottom:1.5rem}
+    .admin-total .big-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--straw);display:block}
+    .admin-total .pct-bar-wrap{background:rgba(255,255,255,.2);border-radius:30px;height:14px;margin:.6rem 0 .3rem;overflow:hidden}
+    .admin-total .pct-bar-fill{height:100%;background:var(--straw);border-radius:30px;transition:width 1s ease}
+    .admin-total .pct-txt{font-family:'Caveat',cursive;font-size:1rem;opacity:.9}
+    .add-pix-box{background:var(--feather);border-radius:14px;padding:1.4rem;border:2px solid var(--straw);margin-bottom:1.5rem}
+    .add-pix-box h4{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--rust);margin-bottom:1rem}
+    .fields-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    @media(max-width:480px){.fields-row{grid-template-columns:1fr}}
+    .btn-add{background:var(--moss);color:#fff;border:none;padding:.65rem 1.5rem;border-radius:10px;font-family:'Lora',serif;font-size:.95rem;font-weight:600;cursor:pointer;box-shadow:2px 3px 0 #2a3d24;transition:all .2s;margin-top:.6rem}
+    .btn-add:hover{background:#4e6e45;transform:translateY(-2px)}
+    .add-feedback{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--moss);margin-top:.5rem;min-height:1.3rem}
+    .hist-admin{margin-top:.5rem}
+    .hist-admin h4{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--rust);margin-bottom:.7rem}
+    .hadm-row{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;background:var(--white);border:1.5px solid #e0d0b0;border-radius:9px;margin-bottom:.4rem;animation:fadeUp .3s ease both}
+    .hadm-nome{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--earth);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .hadm-val{font-family:'Playfair Display',serif;font-weight:700;color:var(--moss);font-size:1rem;white-space:nowrap}
+    .hadm-data{font-size:.75rem;color:#aaa;white-space:nowrap}
+    .btn-del{background:none;border:none;font-size:1rem;cursor:pointer;color:#c0392b;padding:0 .2rem;transition:transform .2s;flex-shrink:0}
+    .btn-del:hover{transform:scale(1.3)}
+    .empty-hist{font-family:'Caveat',cursive;font-size:1.1rem;color:#bbb;text-align:center;padding:1rem}
+    .change-pwd-toggle{font-size:.82rem;color:var(--sage);text-decoration:underline;cursor:pointer;display:block;margin-top:.4rem;background:none;border:none;font-family:'Lora',serif}
+    .change-pwd-box{display:none;margin-top:.8rem;padding:1rem;background:#f5f0e8;border-radius:10px;border:1.5px solid var(--straw)}
+    .change-pwd-box.open{display:block}
+    .btn-secondary{background:var(--feather);color:var(--earth);border:2px solid var(--straw);padding:.55rem 1.2rem;border-radius:10px;font-family:'Lora',serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:.5rem;width:100%}
+    .btn-secondary:hover{background:var(--straw)}
+
+    footer{background:var(--earth);color:var(--feather);text-align:center;padding:2rem 1rem;font-family:'Caveat',cursive;font-size:1.1rem;opacity:.9}
+    .btn-valor{background:var(--feather);border:2px solid var(--straw);border-radius:10px;padding:.5rem 1rem;font-family:'Lora',serif;font-size:.95rem;font-weight:600;color:var(--earth);cursor:pointer;transition:all .2s;box-shadow:2px 3px 0 var(--straw)}
+    .btn-valor:hover,.btn-valor.selected{background:var(--straw);border-color:var(--gold);transform:translateY(-2px);box-shadow:2px 5px 0 var(--gold)}
+    @media(max-width:600px){.header-inner{flex-direction:column;align-items:flex-start}nav{width:100%}nav button{flex:1;text-align:center;padding:.5rem .6rem;font-size:.88rem}}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo" id="logo-click" title="Galinheiro da Larissa">
+      Desejo da Larissa
+      <span>🐔 O Galinheiro dos Sonhos</span>
+    </div>
+    <nav>
+      <button class="active" onclick="showTab('motivos',this)">🌿 Motivos</button>
+      <button onclick="showTab('vakinha',this)">🐄 Vakinha</button>
+      <button onclick="showTab('historia',this)">📖 Galinhas Sedosas</button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <span class="hero-emoji">🐔</span>
+  <h1>O Galinheiro<br>da Larissa</h1>
+  <p>Um sonho com penas, ovos frescos e muito amor caipira ✨</p>
+  <div class="hero-badge">🥚 Meta: construir o galinheiro perfeito!</div>
+</div>
+
+<div id="tab-motivos" class="tab active">
+  <div class="container">
+    <h2 class="section-title">Por que construir?</h2>
+    <p class="intro-text">Ter um galinheiro não é só uma vontade — é uma decisão de vida mais sustentável, mais conectada com a natureza e, convenhamos, muito mais fofa. Veja todos os motivos que me fazem querer tanto esse projeto:</p>
+    <div class="motivos-grid">
+      <div class="motivo-card"><span class="motivo-icon">🥚</span><h3>Ovos Fresquinhos Todo Dia</h3><p>Nada supera o prazer de pegar um ovo ainda quentinho do ninho pela manhã. Sem conservantes, sem sofrimento animal — só frescor e sabor de verdade no café da manhã.</p></div>
+      <div class="motivo-card"><span class="motivo-icon">🌱</span><h3>Vida Mais Sustentável</h3><p>As galinhas transformam restos de comida em fertilizante natural rico em nutrientes. O adubo vai direto pro jardim e horta, fechando um ciclo perfeito sem desperdício.</p></div>
+      <div class="motivo-card"><span class="motivo-icon">💚</span><h3>Conexão com a Natureza</h3><p>Cuidar de animais nos reconecta com ritmos esquecidos — o nascer do sol, o canto da manhã, as estações do ano. É terapêutico e transforma a rotina diária.</p></div>
+      <div class="motivo-card"><span class="motivo-icon">💰</span><h3>Economia no Mercado</h3><p>Com as galinhas produzindo ovos, a conta do mercado cai bastante. E quando a produção excede o consumo, dá até pra compartilhar com vizinhos e amigos!</p></div>
+      <div class="motivo-card"><span class="motivo-icon">🐣</span><h3>Companhia Encantadora</h3><p>As galinhas sedosas são animais de personalidade marcante — curiosas, carinhosas e divertidas. Elas criam vínculos com seus donos e viram verdadeiras mascotes da família.</p></div>
+      <div class="motivo-card"><span class="motivo-icon">🏡</span><h3>Sonho de Infância Realizado</h3><p>Todo mundo tem aquela memória da casa da vovó com galinheiro no fundo do quintal. Esse projeto é resgatar essa magia e criar novas memórias afetivas para quem vem nos visitar.</p></div>
+      <div class="motivo-card"><span class="motivo-icon">🪲</span><h3>Controle Natural de Pragas</h3><p>Galinhas adoram insetos! Elas controlam naturalmente percevejos, grilos e outros bichosos do jardim, reduzindo a necessidade de pesticidas no quintal.</p></div>
+      <div class="motivo-card"><span class="motivo-icon">🎓</span><h3>Aprendizado Contínuo</h3><p>Criar galinhas ensina sobre biologia, comportamento animal, nutrição e muito mais. É uma escola viva dentro de casa — perfeito para crianças e curiosos de todas as idades.</p></div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-vakinha" class="tab">
+  <div class="container">
+    <h2 class="section-title">Vakinha do Galinheiro</h2>
+    <div class="vakinha-box">
+      <div class="vakinha-emoji">🐄</div>
+      <div class="vakinha-title">Vaquinha da Galinha</div>
+      <div class="vakinha-subtitle">Cada real nos aproxima das penas! 🐔</div>
+      <div class="valores">
+        <div class="valor-item"><span class="num" id="val-arrecadado">R$ 0</span><span class="label">Arrecadado</span></div>
+        <div class="valor-item"><span class="num">R$ 2.500</span><span class="label">Meta Total</span></div>
+        <div class="valor-item"><span class="num" id="val-pct">0%</span><span class="label">Concluído</span></div>
+      </div>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-label" id="progressLabel">Vamos lá! A galinha tá esperando 🐔</div>
+      <div class="pix-box">
+        <h4>📲 Contribua via PIX</h4>
+        <div class="pix-key" onclick="copyPix()" title="Clique para copiar">11 98361-7285</div>
+        <div id="pix-feedback" style="color:var(--straw);font-family:'Caveat',cursive;font-size:1rem;height:1.2rem;"></div>
+        <p class="pix-tip">💛 Qualquer valor conta e faz a diferença!</p>
+      </div>
+    </div>
+
+    <div class="historico-pub">
+      <h3>💛 Quem já contribuiu</h3>
+      <div id="hist-pub-list"><p class="empty-hist">Nenhuma contribuição registrada ainda — seja o primeiro! 🐔</p></div>
+    </div>
+
+    <div style="height:2rem"></div>
+
+    <h3 style="font-family:'Playfair Display',serif;color:var(--rust);font-size:1.5rem;margin-bottom:1.2rem;">📋 Etapas do Projeto</h3>
+    <div class="etapas">
+      <div class="etapa done"><span class="etapa-icon">📐</span><div class="etapa-info"><h4>Planejamento e projeto</h4><p>Estudo do espaço, definição do tamanho e modelo do galinheiro</p></div><span class="etapa-status">✅ Feito</span></div>
+      <div class="etapa done"><span class="etapa-icon">🛒</span><div class="etapa-info"><h4>Lista de materiais</h4><p>Madeira, tela, telhas, comedouros, bebedouros e acessórios</p></div><span class="etapa-status">✅ Feito</span></div>
+      <div class="etapa pending"><span class="etapa-icon">💰</span><div class="etapa-info"><h4>Arrecadação completa</h4><p>Atingir a meta de R$ 2.500 para compra de todos os materiais</p></div><span class="etapa-status">⏳ Em curso</span></div>
+      <div class="etapa pending"><span class="etapa-icon">🔨</span><div class="etapa-info"><h4>Construção do galinheiro</h4><p>Obra em mutirão! Vem junto quem quiser ajudar 🤗</p></div><span class="etapa-status">🔜 Em breve</span></div>
+      <div class="etapa pending"><span class="etapa-icon">🐔</span><div class="etapa-info"><h4>Chegada das galinhas sedosas</h4><p>O momento mais esperado — as primeiras moradoras chegam!</p></div><span class="etapa-status">🔜 Em breve</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-historia" class="tab">
+  <div class="container">
+    <div class="historia-hero">
+      <span class="big-emoji">🐔</span>
+      <h2>A História das<br>Galinhas Sedosas</h2>
+      <p class="tagline">A raça mais fofa, peluda e encantadora do mundo das aves 🌸</p>
+    </div>
+    <div class="historia-section">
+      <div class="historia-block" data-num="01"><h3>🌏 Origem Milenar e Misteriosa</h3><p>A Galinha Sedosa — conhecida em inglês como <em>Silkie</em> — tem uma história que atravessa séculos e continentes. Acredita-se que a raça surgiu na <strong>Ásia</strong>, provavelmente na China, há mais de <strong>2.000 anos</strong>. Registros históricos sugerem que elas já eram criadas durante a Dinastia Tang (618–907 d.C.).</p><p>Marco Polo, o célebre explorador veneziano, teria encontrado essas aves durante suas viagens pelo Oriente no século XIII e descreveu, espantado, galinhas cobertas por penas que lembravam "pelo de gato ou lã de ovelha". Era o primeiro registro ocidental dessa criatura extraordinária.</p></div>
+      <div class="feather-divider">🪶 🪶 🪶</div>
+      <div class="historia-block" data-num="02"><h3>✨ O que torna a Sedosa tão especial?</h3><p>Ao contrário das galinhas comuns, as Sedosas possuem <strong>penas sem bárbulas</strong> — a estrutura que normalmente faz as penas "grugarem" juntas está ausente. O resultado é uma plumagem incrivelmente macia, fofa e aveludada, que se parece mais com cabelo ou algodão do que com penas.</p><p>Mas as surpresas não param aí: sua pele, carne e ossos são completamente <strong>negros ou azul-escuros</strong> — uma característica chamada fibromelanose, causada por hiperpigmentação. Na culinária asiática, especialmente na medicina tradicional chinesa, são consideradas um alimento medicinal de alto valor.</p><p>Elas também possuem <strong>cinco dedos</strong> (a maioria das galinhas tem quatro), pernas cobertas de penas e uma crista redonda em forma de pompom no topo da cabeça. São, sem dúvida, as mais peculiares e adoráveis do reino das aves domésticas.</p></div>
+      <div class="feather-divider">🪶 🪶 🪶</div>
+      <div class="historia-block" data-num="03"><h3>💖 A Personalidade que Conquista</h3><p>As Galinhas Sedosas têm fama mundial de serem as mais dóceis e carinhosas entre todas as raças de galinhas. Elas adoram colo, reconhecem seus donos e costumam buscar atenção e carinho ativamente. Muitas pessoas as criam como <strong>animais de estimação</strong>, não apenas pelas penas fofas, mas pela personalidade encantadora.</p><p>As fêmeas são <strong>excepcionalmente boas mães</strong>: têm instinto materno fortíssimo e são conhecidas por chocar ovos de outras aves, como patos e perus, sem reclamar. Nos aviários do mundo inteiro, as Sedosas são usadas como "mamães adotivas" justamente por essa dedicação incansável à prole.</p></div>
+      <div class="feather-divider">🪶 🪶 🪶</div>
+      <div class="historia-block" data-num="04"><h3>🥚 Produção e Culinária</h3><p>As Sedosas não são recordistas de postura — produzem cerca de <strong>80 a 120 ovos por ano</strong>, menos que raças comerciais. Mas seus ovos têm sabor delicado e são muito apreciados por quem os experimenta.</p><p>Na gastronomia asiática, especialmente na China, Japão, Camboja e Vietnã, a <strong>carne de galinha sedosa</strong> é tratada como iguaria medicinal. Sopas e caldos feitos com essa carne são indicados na medicina tradicional para fortalecer o sistema imunológico e recuperação pós-parto.</p></div>
+      <div class="feather-divider">🪶 🪶 🪶</div>
+      <div class="historia-block" data-num="05"><h3>🌍 Sedosas no Brasil e no Mundo</h3><p>No Brasil, a criação de Galinhas Sedosas tem crescido muito nos últimos anos. A raça é reconhecida pela <strong>American Poultry Association</strong> desde 1874 e existe em diversas cores: branca, preta, azul, dourada, cinza e bicolor.</p><p>E é exatamente por toda essa magia que a Larissa quer ter as suas. Porque quando você conhece uma Galinha Sedosa de perto, é impossível não se apaixonar. 🐔💛</p></div>
+    </div>
+    <div class="fun-facts">
+      <h3>🧠 Curiosidades Rápidas</h3>
+      <div class="facts-grid">
+        <div class="fact-item"><span class="fact-icon">🦴</span><strong>Ossos negros</strong><span>Pele, carne e ossos são pigmentados em azul-preto</span></div>
+        <div class="fact-item"><span class="fact-icon">🖐️</span><strong>5 dedos</strong><span>Têm um dedo a mais que a maioria das galinhas</span></div>
+        <div class="fact-item"><span class="fact-icon">🧶</span><strong>Penas únicas</strong><span>Sem bárbulas, parecem fio de seda ou lã</span></div>
+        <div class="fact-item"><span class="fact-icon">🐥</span><strong>Mamãe perfeita</strong><span>Chocam ovos de qualquer espécie com dedicação</span></div>
+        <div class="fact-item"><span class="fact-icon">🌿</span><strong>Medicinal</strong><span>Usada há 2000 anos na medicina chinesa</span></div>
+        <div class="fact-item"><span class="fact-icon">🎨</span><strong>7+ cores</strong><span>Branca, preta, azul, dourada, cinza e mais</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Feito com 💛 e muito carinho pelo galinheiro dos sonhos da Larissa</p>
+  <p style="margin-top:.4rem;opacity:.7;font-size:.95rem;">🐔 Que os ovos sejam muitos e a felicidade, maior ainda 🥚</p>
+</footer>
+
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAdmin()">✕</button>
+
+    <div id="login-form">
+      <h2>🔐 Área Restrita</h2>
+      <p class="sub">Acesso exclusivo para a Larissa 🐔</p>
+      <div class="login-error" id="login-error">Senha incorreta. Tente novamente!</div>
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="input-senha" placeholder="Digite a senha..." onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+      <button class="btn-primary" onclick="doLogin()">🚪 Entrar</button>
+    </div>
+
+    <div id="admin-panel">
+      <div class="admin-header">
+        <h3>🛠️ Painel de Controle</h3>
+        <button class="btn-logout" onclick="doLogout()">Sair 👋</button>
+      </div>
+
+      <div class="admin-total">
+        <span style="font-family:'Caveat',cursive;font-size:1rem;opacity:.85">Total arrecadado</span>
+        <span class="big-num" id="adm-total">R$ 0,00</span>
+        <div class="pct-bar-wrap"><div class="pct-bar-fill" id="adm-pct-bar" style="width:0%"></div></div>
+        <span class="pct-txt" id="adm-pct-txt">0% da meta de R$ 2.500</span>
+      </div>
+
+      <div class="add-pix-box">
+        <h4>➕ Registrar novo PIX recebido</h4>
+        <div class="fields-row">
+          <div class="field" style="margin:0">
+            <label>Nome / Apelido</label>
+            <input type="text" id="adm-nome" placeholder="Ex: Tia Cida 💛"/>
+          </div>
+          <div class="field" style="margin:0">
+            <label>Valor (R$)</label>
+            <input type="number" id="adm-valor" placeholder="Ex: 50" min="0.01" step="0.01"/>
+          </div>
+        </div>
+        <div class="field" style="margin-top:.8rem">
+          <label>Data (opcional)</label>
+          <input type="date" id="adm-data"/>
+        </div>
+        <div class="field">
+          <label>Observação (opcional)</label>
+          <input type="text" id="adm-obs" placeholder="Ex: via amigo em comum"/>
+        </div>
+        <button class="btn-add" onclick="addPix()">💛 Registrar Pagamento</button>
+        <div class="add-feedback" id="adm-feedback"></div>
+      </div>
+
+      <div class="hist-admin">
+        <h4>📋 Histórico de Pagamentos (<span id="adm-count">0</span>)</h4>
+        <div id="adm-hist-list"></div>
+      </div>
+
+      <div style="margin-top:1.5rem;border-top:1.5px solid var(--straw);padding-top:1rem">
+        <button class="change-pwd-toggle" onclick="toggleChangePwd()">🔑 Alterar senha de acesso</button>
+        <div class="change-pwd-box" id="change-pwd-box">
+          <div class="field"><label>Senha atual</label><input type="password" id="pwd-atual" placeholder="Senha atual"/></div>
+          <div class="field"><label>Nova senha</label><input type="password" id="pwd-nova" placeholder="Nova senha (mínimo 4 caracteres)"/></div>
+          <div class="field"><label>Confirmar nova senha</label><input type="password" id="pwd-conf" placeholder="Repita a nova senha"/></div>
+          <div id="pwd-msg" style="font-family:'Caveat',cursive;font-size:1rem;min-height:1.2rem;margin-bottom:.3rem"></div>
+          <button class="btn-secondary" onclick="changePwd()">✅ Salvar nova senha</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  STORAGE HELPERS  (localStorage fallback)
+// ════════════════════════════════════════
+const STORE_KEY = 'galinheiro_pagamentos';
+const PWD_KEY   = 'galinheiro_pwd';
+const META      = 2500;
+
+function loadPagamentos() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch { return []; }
+}
+function savePagamentos(list) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function loadPwd() {
+  return localStorage.getItem(PWD_KEY) || 'galinha2025';
+}
+function savePwd(p) { localStorage.setItem(PWD_KEY, p); }
+
+// ════════════════════════════════════════
+//  TABS
+// ════════════════════════════════════════
+function showTab(id, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'vakinha') setTimeout(renderPublico, 100);
+}
+
+// ════════════════════════════════════════
+//  PROGRESSO PÚBLICO
+// ════════════════════════════════════════
+function totalArrecadado() {
+  return loadPagamentos().reduce((s, p) => s + p.valor, 0);
+}
+
+function updateProgress() {
+  const tot = totalArrecadado();
+  const pct = Math.min((tot / META) * 100, 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('val-arrecadado').textContent = 'R$ ' + tot.toLocaleString('pt-BR', {minimumFractionDigits:2});
+  document.getElementById('val-pct').textContent = pct.toFixed(0) + '%';
+  const msgs = ['Vamos lá! A galinha tá esperando 🐔','🌱 Ótimo começo! O galinheiro vai sair!','🚀 Quase na metade — incrível!','🔥 Mais da metade! As galinhas estão ansiosas!','🎉 Quase lá! A Larissa tá emocionada!','🏆 META BATIDA! O galinheiro será construído!'];
+  const i = pct===0?0:pct<25?1:pct<50?2:pct<75?3:pct<100?4:5;
+  document.getElementById('progressLabel').textContent = msgs[i];
+}
+
+function renderPublico() {
+  updateProgress();
+  const list = loadPagamentos();
+  const el = document.getElementById('hist-pub-list');
+  if (!list.length) { el.innerHTML = '<p class="empty-hist">Nenhuma contribuição registrada ainda — seja o primeiro! 🐔</p>'; return; }
+  el.innerHTML = [...list].reverse().map(p => `
+    <div class="hist-row">
+      <span style="font-size:1.3rem">💛</span>
+      <span class="hist-nome">${esc(p.nome||'Anônimo')}</span>
+      <span class="hist-val">R$ ${p.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+      <span class="hist-data">${p.data||''}</span>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  PIX COPY
+// ════════════════════════════════════════
+function copyPix() {
+  navigator.clipboard.writeText('11 98361-7285').then(() => {
+    const fb = document.getElementById('pix-feedback');
+    fb.textContent = '✅ Chave copiada!';
+    setTimeout(() => fb.textContent = '', 2500);
+  });
+}
+
+// ════════════════════════════════════════
+//  SECRET LOGO CLICK  (5 clicks → admin)
+// ════════════════════════════════════════
+let logoClicks = 0, logoTimer;
+document.getElementById('logo-click').addEventListener('click', () => {
+  logoClicks++;
+  clearTimeout(logoTimer);
+  logoTimer = setTimeout(() => logoClicks = 0, 2000);
+  if (logoClicks >= 5) { logoClicks = 0; openAdmin(); }
+});
+
+// ════════════════════════════════════════
+//  ADMIN MODAL
+// ════════════════════════════════════════
+function openAdmin() {
+  document.getElementById('adminModal').classList.add('open');
+  document.getElementById('input-senha').value = '';
+  document.getElementById('login-error').style.display = 'none';
+}
+function closeAdmin() {
+  document.getElementById('adminModal').classList.remove('open');
+  doLogout();
+}
+document.getElementById('adminModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('adminModal')) closeAdmin();
+});
+
+function doLogin() {
+  const v = document.getElementById('input-senha').value;
+  if (v === loadPwd()) {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    renderAdmin();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('input-senha').value = '';
+    document.getElementById('input-senha').focus();
+  }
+}
+
+function doLogout() {
+  document.getElementById('login-form').style.display = 'block';
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('change-pwd-box').classList.remove('open');
+}
+
+// ════════════════════════════════════════
+//  ADMIN: RENDER
+// ════════════════════════════════════════
+function renderAdmin() {
+  const list = loadPagamentos();
+  const tot = list.reduce((s, p) => s + p.valor, 0);
+  const pct = Math.min((tot / META) * 100, 100);
+  document.getElementById('adm-total').textContent = 'R$ ' + tot.toLocaleString('pt-BR', {minimumFractionDigits:2});
+  document.getElementById('adm-pct-bar').style.width = pct + '%';
+  document.getElementById('adm-pct-txt').textContent = pct.toFixed(1) + '% da meta de R$ 2.500';
+  document.getElementById('adm-count').textContent = list.length;
+
+  const el = document.getElementById('adm-hist-list');
+  if (!list.length) { el.innerHTML = '<div class="empty-hist">Nenhum pagamento registrado ainda.</div>'; return; }
+  el.innerHTML = [...list].map((p, i) => `
+    <div class="hadm-row" id="row-${i}">
+      <span style="font-size:1.1rem">💰</span>
+      <span class="hadm-nome" title="${esc(p.obs||'')}">
+        ${esc(p.nome||'Anônimo')}${p.obs ? ' <span style="font-size:.8rem;opacity:.6">· '+esc(p.obs)+'</span>' : ''}
+      </span>
+      <span class="hadm-val">R$ ${p.valor.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+      <span class="hadm-data">${p.data||'—'}</span>
+      <button class="btn-del" onclick="delPix(${i})" title="Remover">🗑️</button>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  ADMIN: ADD PIX
+// ════════════════════════════════════════
+function addPix() {
+  const nome  = document.getElementById('adm-nome').value.trim();
+  const valor = parseFloat(document.getElementById('adm-valor').value);
+  const data  = document.getElementById('adm-data').value;
+  const obs   = document.getElementById('adm-obs').value.trim();
+  const fb    = document.getElementById('adm-feedback');
+
+  if (!nome) { fb.style.color='#c0392b'; fb.textContent='⚠️ Informe o nome ou apelido do apoiador.'; return; }
+  if (!valor || valor <= 0) { fb.style.color='#c0392b'; fb.textContent='⚠️ Informe um valor válido.'; return; }
+
+  const list = loadPagamentos();
+  const dataFmt = data ? new Date(data+'T12:00:00').toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+  list.push({ nome, valor, data: dataFmt, obs, ts: Date.now() });
+  savePagamentos(list);
+
+  document.getElementById('adm-nome').value = '';
+  document.getElementById('adm-valor').value = '';
+  document.getElementById('adm-data').value = '';
+  document.getElementById('adm-obs').value = '';
+
+  fb.style.color = 'var(--moss)';
+  fb.textContent = `✅ R$ ${valor.toLocaleString('pt-BR',{minimumFractionDigits:2})} de ${nome} registrado com sucesso!`;
+  setTimeout(() => fb.textContent = '', 3500);
+
+  renderAdmin();
+  updateProgress();
+  renderPublico();
+}
+
+// ════════════════════════════════════════
+//  ADMIN: DELETE PIX
+// ════════════════════════════════════════
+function delPix(idx) {
+  if (!confirm('Remover este pagamento?')) return;
+  const list = loadPagamentos();
+  list.splice(idx, 1);
+  savePagamentos(list);
+  renderAdmin();
+  updateProgress();
+  renderPublico();
+}
+
+// ════════════════════════════════════════
+//  ADMIN: CHANGE PASSWORD
+// ════════════════════════════════════════
+function toggleChangePwd() {
+  document.getElementById('change-pwd-box').classList.toggle('open');
+}
+function changePwd() {
+  const atual = document.getElementById('pwd-atual').value;
+  const nova  = document.getElementById('pwd-nova').value;
+  const conf  = document.getElementById('pwd-conf').value;
+  const msg   = document.getElementById('pwd-msg');
+  if (atual !== loadPwd()) { msg.style.color='#c0392b'; msg.textContent='❌ Senha atual incorreta.'; return; }
+  if (nova.length < 4)     { msg.style.color='#c0392b'; msg.textContent='❌ Nova senha muito curta (mínimo 4 caracteres).'; return; }
+  if (nova !== conf)        { msg.style.color='#c0392b'; msg.textContent='❌ As senhas não conferem.'; return; }
+  savePwd(nova);
+  msg.style.color = 'var(--moss)';
+  msg.textContent = '✅ Senha alterada com sucesso!';
+  document.getElementById('pwd-atual').value = '';
+  document.getElementById('pwd-nova').value  = '';
+  document.getElementById('pwd-conf').value  = '';
+  setTimeout(() => { msg.textContent=''; document.getElementById('change-pwd-box').classList.remove('open'); }, 2500);
+}
+
+// ════════════════════════════════════════
+//  UTILS
+// ════════════════════════════════════════
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+updateProgress();
+renderPublico();
+</script>
+</body>
+</html>
